@@ -8,6 +8,7 @@ import Link from '@material-ui/core/Link';
 import { saveToStorage, loadFromStorage, addOrRemove } from '../../services/utils';
 import Button from '@material-ui/core/Button';
 import EventOffers from './EventOffers';
+import GoogleApiWrapper from '../GoogleMap';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -34,6 +35,13 @@ const Details = styled.div`
   min-width: 200px;
   display: inline-block;
 `;
+
+const MapWrapper = styled.div`
+  // width: 90%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+    `;
 
 const DATE_FORMAT = 'MMMM Do YYYY, h:mm:ss a';
 const MY_FAVORITES_KEY = 'my_Favorites_events';
@@ -100,6 +108,9 @@ const Event = () => {
       </Details>
       </DetailsWrapper>
       }
+      <MapWrapper>
+        <GoogleApiWrapper/>
+      </MapWrapper>
       <Button variant="contained" color="primary" onClick={() => (history.push({
         pathname: `/`
       }))}>
