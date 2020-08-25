@@ -1,6 +1,7 @@
 html, body, #app, #app>div {
     height: 100%;
     background-color: #dddddd;
+    /*overflow-x: hidden;*/
 }
 
 #root, .app {

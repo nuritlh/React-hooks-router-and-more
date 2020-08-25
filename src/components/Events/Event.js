@@ -37,11 +37,10 @@ const Details = styled.div`
 `;
 
 const MapWrapper = styled.div`
-  // width: 90%;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-    `;
+  // padding: 20px;
+  // display: flex;
+  // justify-content: center;
+`;
 
 const DATE_FORMAT = 'MMMM Do YYYY, h:mm:ss a';
 const MY_FAVORITES_KEY = 'my_Favorites_events';
@@ -52,14 +51,20 @@ const Event = () => {
   const [isFavorites, setIsFavorites] = useState(false);
   const [event, setEvent] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [locations, setLocations] = useState({});
+  const [venue, setVenue] = useState({});
 
   useEffect(() => {
     if (location && location.state) {
       setEvent(location.state.event);
+      setVenue(location.state.event.venue);
       const favorites = loadFromStorage(MY_FAVORITES_KEY) || [];
       setFavorites(favorites);
       const isFavorites = favorites.filter(fav => fav.id === location.state.event.id);
       setIsFavorites(isFavorites.length > 0);
+      setLocations({
+        stores: [{latitude: +location.state.event.venue.latitude, longitude: +location.state.event.venue.longitude}]
+      })
     } else {
       history.push({
         pathname: `/NotFoundPage`
@@ -76,6 +81,11 @@ const Event = () => {
 
   return (
     <Wrapper>
+      <Button variant="contained" color="primary" style={{ margin:'10px' }} onClick={() => (history.push({
+        pathname: `/`
+      }))}>
+        Back to Search
+      </Button>
       <FlexWrapper>
         <h1>Who’s In Town</h1>
         <FlexWrapper onClick={toggleFavorites}>
@@ -97,10 +107,11 @@ const Event = () => {
       </Details>
       <Details>
         <h3>Where?</h3>
-        <h5>City: {event.venue.city}</h5>
-        <h5>Country: {event.venue.country}</h5>
-        <h5>Location: {event.venue.location}</h5>
-        <h5>Name: {event.venue.name}</h5>
+        <h5>City: {venue.city}</h5>
+        <h5>Country: {venue.country}</h5>
+        <h5>Location: {venue.location}</h5>
+        <h5>Name: {venue.name}</h5>
+        <h5>Type: {venue.type}</h5>
       </Details>
       <Details>
         <h3>Special offers</h3>
@@ -108,14 +119,11 @@ const Event = () => {
       </Details>
       </DetailsWrapper>
       }
+      { event && !venue.type &&
       <MapWrapper>
-        <GoogleApiWrapper/>
+        <GoogleApiWrapper locations={locations}/>
       </MapWrapper>
-      <Button variant="contained" color="primary" onClick={() => (history.push({
-        pathname: `/`
-      }))}>
-        Back to Search
-      </Button>
+      }
     </Wrapper>
   )
 };

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { get } from '../services/api';
-import { loadFromStorage } from '../services/utils';
+import { loadFromStorage, saveToStorage } from '../services/utils';
 import SearchInputWithButton from './SearchInputWithButton/SearchInputWithButton';
 import Artist from '../components/Artist';
 import EventCard from './Events/EventCard';
@@ -50,12 +50,17 @@ const Home = () => {
             setIsShowNotFoundMessage(false);
             get(`${term}/events`)
               .then(res => {
-                (res.data && res.data.length > 0) ? setEvents(res.data) : setEvents(null);
+                if (res.data && res.data.length > 0) {
+                  setEvents(res.data);
+                } else {
+                  setEvents(null);
+                }
               })
               .catch(error => console.log(error));
           } else {
             setIsShowNotFoundMessage(true);
-            setArtist(null)
+            setArtist(null);
+            setEvents(null);
           }
         })
         .catch(error => console.log(error));
