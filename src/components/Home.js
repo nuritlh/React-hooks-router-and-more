@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { get } from '../services/api';
-import { loadFromStorage, saveToStorage } from '../services/utils';
+import { loadFromStorage } from '../services/utils';
 import SearchInputWithButton from './SearchInputWithButton/SearchInputWithButton';
 import Artist from '../components/Artist';
 import EventCard from './Events/EventCard';
