@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
@@ -15,14 +14,16 @@ const styles = () => ({
     alignItems: 'center',
     width: 250,
     border: `1px solid #d0cccc`,
-    borderRadius: 4
+    borderRadius: 4,
+    backgroundColor: '#e7f0fe'
   },
   input: {
     flex: 1,
     marginLeft: 10
   },
   inputProps: {
-    fontSize: 14
+    fontSize: 14,
+    backgroundColor: '#e7f0fe'
   },
   divider: {
     height: 30,

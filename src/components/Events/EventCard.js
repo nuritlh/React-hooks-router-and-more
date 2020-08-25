@@ -5,12 +5,12 @@ import moment from 'moment';
 
 const Wrapper = styled.div`
   font-size: 0.8rem;
-  background-color: #add4e6;
+  background-color: #d9adadb3;
   padding: 5px;
   margin: 5px;
   cursor: pointer;
   &:hover {
-  background-color: #73b9d2;
+  background-color: #d9adad;
 `;
 
 const EventCard = ({event}) => {

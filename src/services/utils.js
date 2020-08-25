@@ -6,8 +6,8 @@ export const loadFromStorage = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 
+// remove/add object by id from array of objects
 export const addOrRemove = (array, item) => {
-  // const exists = array.includes(item.id);
   const exists = array.filter((c) => (c.id === item.id));
   if (exists.length > 0) {
     return array.filter((c) => { return c.id !== item.id })

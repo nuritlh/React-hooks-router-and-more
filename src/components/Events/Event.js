@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Link from '@material-ui/core/Link';
-import { saveToStorage, loadFromStorage, addOrRemove } from '../services/utils';
+import { saveToStorage, loadFromStorage, addOrRemove } from '../../services/utils';
 import Button from '@material-ui/core/Button';
 import EventOffers from './EventOffers';
+
 const Wrapper = styled.div`
   height: 100%;
   margin: 0 20px;
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
 const FlexWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 20px;
 `;
 
@@ -28,13 +29,14 @@ const DetailsWrapper = styled.div`
 
 const Details = styled.div`
   margin: 20px;
-  background-color: #e2e6bd;
+  background-color: #a3d2ca;
   border-radius: 50%;
+  min-width: 200px;
   display: inline-block;
 `;
 
 const DATE_FORMAT = 'MMMM Do YYYY, h:mm:ss a';
-const MY_FAVORITES_STORAGE = 'my_Favorites_events';
+const MY_FAVORITES_KEY = 'my_Favorites_events';
 
 const Event = () => {
   const location = useLocation();
@@ -46,7 +48,7 @@ const Event = () => {
   useEffect(() => {
     if (location && location.state) {
       setEvent(location.state.event);
-      const favorites = loadFromStorage(MY_FAVORITES_STORAGE) || [];
+      const favorites = loadFromStorage(MY_FAVORITES_KEY) || [];
       setFavorites(favorites);
       const isFavorites = favorites.filter(fav => fav.id === location.state.event.id);
       setIsFavorites(isFavorites.length > 0);
@@ -58,11 +60,11 @@ const Event = () => {
   }, [location, history]);
 
   const toggleFavorites = useCallback(() => {
-    const favorites = loadFromStorage(MY_FAVORITES_STORAGE) || [];
+    const favorites = loadFromStorage(MY_FAVORITES_KEY) || [];
     const updatedFavorites = addOrRemove(favorites, event);
-    saveToStorage(MY_FAVORITES_STORAGE,updatedFavorites);
+    saveToStorage(MY_FAVORITES_KEY,updatedFavorites);
     setIsFavorites(!isFavorites);
-  },[isFavorites, favorites]);
+  },[event, isFavorites]);
 
   return (
     <Wrapper>

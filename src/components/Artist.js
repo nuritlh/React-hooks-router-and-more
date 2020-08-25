@@ -5,16 +5,15 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-around;
-  border-radius: 10px;
+  justify-content: center;
   padding: 10px;
   background-color: #e4c6c6;
+  font-weight: 700;
 `;
 
 const Img = styled.img`
   width: 5rem;
   margin: 10px;
-  border-radius: 4px;
 `;
 
 const Artist = ({artist}) => {
